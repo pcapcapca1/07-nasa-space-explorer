@@ -9,12 +9,22 @@ const modalImage = document.getElementById('modalImage');
 const modalTitle = document.getElementById('modalTitle');
 const modalDate = document.getElementById('modalDate');
 const modalExplanation = document.getElementById('modalExplanation');
+const spaceFact = document.getElementById('spaceFact');
+
+const spaceFacts = [
+	'One day on Venus is longer than one year on Venus.',
+	'Jupiter is so large that more than 1,000 Earths could fit inside it.',
+	'Neutron stars can spin hundreds of times every second.',
+	'Saturn would float in water because its average density is less than water.',
+	'Footprints on the Moon can last for millions of years because there is no wind to erase them.'
+];
 
 // Call the setupDateInputs function from dateRange.js
 // This sets up the date pickers to:
 // - Default to a range of 9 days (from 9 days ago to today)
 // - Restrict dates to NASA's image archive (starting from 1995)
 setupDateInputs(startInput, endInput);
+spaceFact.textContent = spaceFacts[Math.floor(Math.random() * spaceFacts.length)];
 
 // Fetch the APOD images for the selected date range.
 async function getSpaceImages() {
@@ -61,7 +71,7 @@ function displayImages(images) {
 		const imageUrl = image.hdurl || image.url || '';
 		const isNasaFallback = image.title === 'NASA Science' && imageUrl.includes('nasa-logo');
 
-		if (image.media_type !== 'image' || isNasaFallback) {
+		if (isNasaFallback) {
 			return;
 		}
 
@@ -70,26 +80,43 @@ function displayImages(images) {
 		const galleryItem = document.createElement('article');
 		galleryItem.className = 'gallery-item';
 
-		const imageElement = document.createElement('img');
-		imageElement.src = imageUrl;
-		imageElement.alt = image.title;
-
 		const title = document.createElement('h2');
 		title.textContent = image.title;
 
 		const date = document.createElement('p');
 		date.textContent = image.date;
 
-		galleryItem.append(imageElement, title, date);
-		galleryItem.tabIndex = 0;
-		galleryItem.setAttribute('role', 'button');
-		galleryItem.addEventListener('click', () => openModal(image));
-		galleryItem.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter' || event.key === ' ') {
-				event.preventDefault();
-				openModal(image);
-			}
-		});
+		if (image.media_type === 'image') {
+			const imageElement = document.createElement('img');
+			imageElement.src = imageUrl;
+			imageElement.alt = image.title;
+
+			galleryItem.append(imageElement, title, date);
+			galleryItem.tabIndex = 0;
+			galleryItem.setAttribute('role', 'button');
+			galleryItem.addEventListener('click', () => openModal(image));
+			galleryItem.addEventListener('keydown', (event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					openModal(image);
+				}
+			});
+		} else if (image.media_type === 'video') {
+			const videoMessage = document.createElement('p');
+			videoMessage.textContent = 'This APOD is a video.';
+
+			const videoLink = document.createElement('a');
+			videoLink.className = 'video-link';
+			videoLink.href = image.url;
+			videoLink.target = '_blank';
+			videoLink.rel = 'noopener noreferrer';
+			videoLink.textContent = 'Watch video on NASA';
+
+			galleryItem.append(videoMessage, title, date, videoLink);
+		} else {
+			return;
+		}
+
 		gallery.appendChild(galleryItem);
 	});
 

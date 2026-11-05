@@ -149,6 +149,11 @@ button:hover {
   height: 200px;
   object-fit: cover;
   border-radius: 4px;
+  transition: transform 250ms ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
 }
 
 .gallery-item p {
@@ -169,6 +174,35 @@ button:hover {
 .placeholder-icon {
   font-size: 48px;
   margin-bottom: 20px;
+}
+
+/* Random fact shown above the gallery */
+.space-fact {
+  margin: 20px;
+  padding: 16px 20px;
+  border-left: 5px solid var(--nasa-red);
+  background-color: white;
+}
+
+.space-fact h2 {
+  color: var(--nasa-blue);
+  font-size: 20px;
+}
+
+.space-fact p {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.video-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--nasa-blue);
+  font-weight: bold;
+}
+
+.video-link:hover {
+  color: var(--nasa-red);
 }
 
 /* Modal image details */
