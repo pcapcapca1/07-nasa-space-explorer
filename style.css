@@ -5,10 +5,20 @@
   padding: 0;
 }
 
+:root {
+  --nasa-red: #fc3d21;
+  --nasa-blue: #0b3d91;
+  --ink: #1b1b1b;
+  --muted-ink: #555;
+  --page-gray: #f5f5f5;
+  --line-gray: #b8b8b8;
+}
+
 /* Base page styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background-color: var(--page-gray);
   padding: 20px;
 }
 
@@ -23,15 +33,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 4px solid var(--nasa-blue);
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
 
 h1 {
-  font-family: Verdana, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
-  color: #212121;
+  color: var(--ink);
+  letter-spacing: 0;
 }
 
 /* Logo */
@@ -53,25 +65,34 @@ h1 {
 /* Inputs and buttons */
 input[type="date"],
 button {
-  font-family: Arial, sans-serif;
+  font-family: inherit;
   font-weight: normal;
-  color: #666;
+  color: var(--ink);
   padding: 10px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--line-gray);
   border-radius: 4px;
   font-size: 16px;
   line-height: 1.4;
   width: 100%;
 }
 
+input[type="date"]:focus,
+button:focus-visible,
+.gallery-item:focus-visible,
+.close-modal:focus-visible {
+  outline: 3px solid var(--nasa-red);
+  outline-offset: 2px;
+}
+
 /* Button specific */
 button {
-  background-color: #d3d3d3;
-  color: black;
+  background-color: var(--nasa-red);
+  color: white;
+  border-color: var(--nasa-red);
   cursor: pointer;
 }
 button:hover {
-  background-color: #bfbfbf;
+  background-color: #d52f1a;
 }
 
 /* Stack horizontally on wider screens */
@@ -102,12 +123,18 @@ button:hover {
   min-width: 280px;
   max-width: 500px;
   background: white;
+  border-top: 4px solid var(--nasa-blue);
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  box-shadow: 0 3px 8px rgba(11, 61, 145, 0.25);
 }
 
 /* Three columns on wider screens */
@@ -127,6 +154,7 @@ button:hover {
 .gallery-item p {
   margin-top: 10px;
   padding: 5px;
+  color: var(--muted-ink);
   font-size: 14px;
 }
 
@@ -135,7 +163,7 @@ button:hover {
   flex: 1 1 100%;
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--muted-ink);
 }
 
 .placeholder-icon {
@@ -166,6 +194,7 @@ button:hover {
   overflow-y: auto;
   padding: 20px;
   background-color: white;
+  border-top: 5px solid var(--nasa-red);
   border-radius: 8px;
 }
 
@@ -196,7 +225,13 @@ button:hover {
   border: 0;
   border-radius: 50%;
   background-color: white;
-  color: #212121;
+  color: var(--nasa-blue);
   font-size: 28px;
   line-height: 1;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  background-color: var(--nasa-red);
+  color: white;
 }
